@@ -37,8 +37,9 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public List<User> readAll(int page, int size) {
-        Page<User> users = userRepository.findAll(PageRequest.of(page, size));
+//    public List<User> readAll(int page, int size) {
+    public List<User> readAll() {
+        Page<User> users = userRepository.findAll(PageRequest.of(0, 100));
         if (users.getTotalElements() == 0) {
             return Collections.emptyList();
         }
