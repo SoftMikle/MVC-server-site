@@ -21,11 +21,11 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
-    public ResponseEntity<DataContainer<Boolean>> create(@RequestBody @Valid User user) {
-        userService.create(user);
-        return ResponseEntity.ok(new DataContainer<>(true));
-    }
+//    @PostMapping
+//    public ResponseEntity<DataContainer<Boolean>> create(@RequestBody @Valid User user) {
+//        userService.create(user);
+//        return ResponseEntity.ok(new DataContainer<>(true));
+//    }
 
     @GetMapping
 //    public String readAll(@RequestParam int page, @RequestParam int size) {
@@ -68,6 +68,19 @@ public class UserController {
     public String delete(@PathVariable Long id) {
         System.out.println("id = " + id);
         userService.delete(id);
+        return "redirect:/users";
+    }
+
+    @GetMapping("/add")
+    public String create(Model model) {
+        model.addAttribute("user", new User());
+        return "add_user";
+    }
+
+    @PostMapping("/add")
+    public String create(User user) {
+        System.out.println("user = " + user.toString());
+        userService.create(user);
         return "redirect:/users";
     }
 }
